@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+  <Row>
+  <vars stringInput ="laptop asus" sumToCompare = "50000" />
+  </Row>
+  <Row>
+    <vars stringInput ="laptop HP" sumToCompare = "50000" />
+  </Row>
+  <Row>
+    <vars stringInput ="laptop acer" sumToCompare = "50000" />
+  </Row>
+  <Row>
+    <vars stringInput ="laptop apple" sumToCompare = "50000" />
+  </Row>
+  <Row>
+    <vars stringInput ="laptop lenovo" sumToCompare = "50000" />
+  </Row>
+</Data>
