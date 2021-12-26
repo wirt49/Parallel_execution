@@ -1,41 +1,39 @@
 ﻿using NUnit.Framework;
 using System.Threading;
-using HomeTask_Epam_2.PageObjects;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
-using System.Xml.Linq;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
 using TestProject3.Helpers;
+using TestProject3.PageObjects;
 
 [assembly: LevelOfParallelism(3)]
 
-namespace HomeTask_Epam_2.Tests
+namespace TestProject3.Tests
 {
     
     [Parallelizable(scope: ParallelScope.All)]
     public class AddToCartTest : BaseTest
     {
+        private readonly int timeoutInSeconds = 10;
+        private bool CompareSum(int firtsSum, int secondSum) => firtsSum > secondSum;
         
-        private bool CompareSum(int firtsSum, int secondSum)
-        {
-            return firtsSum > secondSum;
-        }
 
         [Test]
         [TestCaseSource(typeof(ReadData), nameof(ReadData.TestDataIterator))]
         public void CheckCartSum(string stringInput, string sumToCompare)
         {
-            GetHomePage().Search(stringInput);
-            GetSearchResultPage().LoadComplete();
-            GetSearchResultPage().ExpensiveSort();
+            PageFactoryManager pageFactoryManager = new PageFactoryManager(Driver);
+
+            HomePage homePage = pageFactoryManager.GetHomePage(Driver);
+            homePage.Search(stringInput);
+
+            SearchResultPage searchResultPage = pageFactoryManager.GetSearchResultPage(Driver);
+            searchResultPage.WaitToPageLoadComplete(timeoutInSeconds);
+            searchResultPage.ExpensiveSort(timeoutInSeconds);
             Thread.Sleep(1000);
-            GetSearchResultPage().AddToCartMostExpensiveProd();
-            
-            GetCartPage().OpenCart();
-            
-            int cartSum = GetCartPage().GetCartSum();
+            searchResultPage.AddToCartMostExpensiveProd(timeoutInSeconds);
+
+            CartPage cartPage = pageFactoryManager.GetCartPage(Driver);
+            cartPage.OpenCart(timeoutInSeconds);
+            cartPage.WaitToPageLoadComplete(timeoutInSeconds);
+            int cartSum = cartPage.GetCartSum();
             Assert.IsTrue(CompareSum(cartSum, int.Parse(sumToCompare)));
         }
         

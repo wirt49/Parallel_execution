@@ -3,17 +3,16 @@ using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using System;
 using NUnit.Framework.Internal;
-using HomeTask_Epam_2.PageObjects;
+using TestProject3.PageObjects;
 using System.Threading;
 
-namespace HomeTask_Epam_2
+namespace TestProject3
 {
 
 
     [TestFixture]
     public class BaseTest
     {
-        //protected IWebDriver driver;
         private readonly string url = "https://rozetka.com.ua/";
         private static ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
 
@@ -25,7 +24,7 @@ namespace HomeTask_Epam_2
             {
                 if (!driver.IsValueCreated)
                 {
-                    throw new ArgumentException("ALLERT!");
+                    throw new ArgumentException("ALLERT! Driver isn't inizialized!");
                 }
 
                 return driver.Value;
@@ -33,26 +32,7 @@ namespace HomeTask_Epam_2
         }
 
 
-        public IWebDriver GetDriver()
-        {
-            return Driver;
-        }
-
-        public SearchResultPage GetSearchResultPage()
-        {
-            return new SearchResultPage(Driver);
-        }
-
-        public HomePage GetHomePage()
-        {
-            return new HomePage(Driver);
-        }
-
-        public CartPage GetCartPage()
-        {
-            return new CartPage(Driver);
-        }
-
+        public IWebDriver GetDriver() => Driver;
 
         [SetUp]
         public void Setup()
