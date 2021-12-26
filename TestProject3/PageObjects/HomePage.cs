@@ -3,7 +3,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using SeleniumExtras.PageObjects;
 
-namespace HomeTask_Epam_2.PageObjects
+namespace TestProject3.PageObjects
 {
     public class HomePage : BasePage
     {
@@ -16,13 +16,10 @@ namespace HomeTask_Epam_2.PageObjects
         public HomePage(IWebDriver driver) : base(driver)
         {
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-
         }
 
         public void Search(string searchedProduct)
         {
-            //driver.FindElement(By.XPath(searchFieldXpath)).
-            //    SendKeys(searchedProduct + Keys.Enter);
             searchField.SendKeys(searchedProduct + Keys.Enter);
         }
 

@@ -6,39 +6,33 @@ using System.Xml.Linq;
 using System.Collections;
 using SeleniumExtras.PageObjects;
 
-namespace HomeTask_Epam_2.PageObjects
+namespace TestProject3.PageObjects
 {
     public class CartPage : BasePage
     {
-        readonly Int32 timeout = 10000;
-
         [FindsBy(How = How.XPath, Using =
             "//button[@class ='header__button ng-star-inserted header__button--active']")]
-        private IWebElement cartButton;
+        private readonly IWebElement cartButton;
+
         [FindsBy(How = How.XPath, Using = "//div[@class = 'cart-receipt__sum']/div/span")]
-        private IWebElement cartSum;
+        private readonly IWebElement cartSum;
+
         public CartPage(IWebDriver driver) : base(driver) { }
 
-        public void OpenCart()
+        public void OpenCart(int timeout)
         {
+            WaitVisibilityOfElement(timeout, cartButton);
             cartButton.Click();
         }
 
         public int GetCartSum()
         {
             var sum = cartSum.Text;
-            int value;
-            int.TryParse(string.Join("", sum.Where(c => char.IsDigit(c))), out value);
+            int.TryParse(string.Join("", sum.Where(c => char.IsDigit(c))), out int value);
             return value;
         }
 
-        public void LoadComplete()
-        {
-            var wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(timeout));
-
-            // Wait for the page to load
-            wait.Until(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
-        }
+        
 
         
 
