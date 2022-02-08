@@ -11,7 +11,7 @@ namespace TestProject3
 
 
     [TestFixture]
-    public class BaseTest
+    public class BaseTestSingletone
     {
         private readonly string url = "https://rozetka.com.ua/";
         private static ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();

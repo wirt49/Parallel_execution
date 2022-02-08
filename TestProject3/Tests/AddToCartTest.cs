@@ -9,9 +9,9 @@ namespace TestProject3.Tests
 {
     
     [Parallelizable(scope: ParallelScope.All)]
-    public class AddToCartTest : BaseTest
+    public class AddToCartTest : BaseTestSingletone
     {
-        private readonly int timeoutInSeconds = 10;
+        private readonly int timeoutInSeconds = 25;
         private bool CompareSum(int firtsSum, int secondSum) => firtsSum > secondSum;
         
 

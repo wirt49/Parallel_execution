@@ -23,5 +23,10 @@ namespace TestProject3.PageObjects
             searchField.SendKeys(searchedProduct + Keys.Enter);
         }
 
+        public void OpenHomePage(string url)
+        {
+            driver.Navigate().GoToUrl(url);
+        }
+
     }   
 }
